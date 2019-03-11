@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project author="zero_two" authorOS="Linux" createdAt="1552331538908" ideName="DevelNext" ideVersion="16.7.0" ideVersionHash="2017103112" name="slim" packageName="app" template="ide\project\templates\DefaultGuiProjectTemplate" updatedAt="1552335296162">
+<project author="zero_two" authorOS="Linux" createdAt="1552331538908" ideName="DevelNext" ideVersion="16.7.0" ideVersionHash="2017103112" name="slim" packageName="app" template="ide\project\templates\DefaultGuiProjectTemplate" updatedAt="1552338101557">
   <tree>
     <expanded>
       <path src=""/>
@@ -12,10 +12,10 @@
   </tree>
   <openedFiles>
     <file src="slim.dnproject"/>
-    <file src="src/app/modules/MainModule.php"/>
-    <file selected="1" src="src/app/forms/MainForm.php"/>
-    <file src="src/app/forms/register.php"/>
+    <file selected="1" src="src/app/modules/MainModule.php"/>
+    <file src="src/app/forms/MainForm.php"/>
     <file src=".gitignore"/>
+    <file src="src/app/forms/repo_bot.php"/>
   </openedFiles>
   <files/>
   <behaviours>

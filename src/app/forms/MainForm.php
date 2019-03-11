@@ -6,9 +6,11 @@ use std, gui, framework, app;
 class MainForm extends AbstractForm {
 
     /**
-     * @event buttonAlt.action 
+     * @event repo_bot.action 
      */
-    function doButtonAltAction(UXEvent $e = null) {    
-        $this->form('register')->show();
+    function doRepo_botAction(UXEvent $e = null) {
+        $this->showPreloader('Ожидание ответа от формы...');
+        $this->form('repo_bot')->showAndWait();
+        $this->hidePreloader();
     }
 }
