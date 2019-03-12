@@ -1,9 +1,0 @@
-{
-  "props": {
-    "singleton": true,
-    "version": "0.0.1",
-    "author": "Merkus",
-    "description": "Работа бота"
-  },
-  "components": []
-}
