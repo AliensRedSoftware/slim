@@ -21,6 +21,9 @@ public class Slim extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setTitle("Slim"); //Установка загаловка
+        stage.centerOnScreen(); //Показать по середине
+        stage.setResizable(false); //Убрать растягивание формы
         Parent root = FXMLLoader.load(getClass().getResource("form/MainForm.fxml"));
         
         Scene scene = new Scene(root);

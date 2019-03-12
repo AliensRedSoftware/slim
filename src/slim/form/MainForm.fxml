@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slim.form.MainFormController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slim.form.MainFormController">
     <children>
-        <TextField fx:id="name" promptText="Имя или email адрес">
+        <TextField fx:id="name" promptText="Логин">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
@@ -24,12 +24,12 @@
                         <Font name="SansSerif Regular" size="13.0" />
                     </font>
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="register" mnemonicParsing="false" text="Создать новый аккаунт">
+                <Button fx:id="register" mnemonicParsing="false" onAction="#register" text="Создать новый аккаунт">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
                     </HBox.margin>
                     <font>
                         <Font name="SansSerif Regular" size="13.0" />

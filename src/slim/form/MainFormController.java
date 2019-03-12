@@ -5,11 +5,12 @@
  */
 package slim.form;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -29,8 +30,25 @@ public class MainFormController implements Initializable {
     private Button register;
     
     @FXML
-    private void auth(javafx.event.ActionEvent event) {
-        System.out.print("hello");
+    private void auth(ActionEvent event) {
+        String name = this.name.getText().trim();
+        if (name.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для входа").showAndWait();
+            this.name.setText("");
+        } else {
+            
+        }
+    }
+    
+    @FXML
+    void register(ActionEvent event) {
+        String name = this.name.getText().trim();
+        if (name.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для регестраций").showAndWait();
+            this.name.setText("");
+        } else {
+            
+        }
     }
     
     /**
