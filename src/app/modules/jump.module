@@ -1,0 +1,9 @@
+{
+  "props": {
+    "author": "Merkus",
+    "description": "Декодер и энкодер сообщение",
+    "version": "0.0.1",
+    "singleton": true
+  },
+  "components": []
+}

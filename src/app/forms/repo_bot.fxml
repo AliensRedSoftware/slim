@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240" prefWidth="320" styleClass="">
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240" prefWidth="344" styleClass="">
   <children>
-    <ListViewEx AnchorPane.bottomAnchor="48" AnchorPane.leftAnchor="8" AnchorPane.rightAnchor="8" AnchorPane.topAnchor="8" editable="false" fixedCellSize="-1" focusTraversable="true" id="listbot" layoutX="8" layoutY="8" prefHeight="184" prefWidth="304" styleClass="list-view ">
+    <ListViewEx AnchorPane.bottomAnchor="48" AnchorPane.leftAnchor="8" AnchorPane.rightAnchor="8" AnchorPane.topAnchor="48" editable="false" fixedCellSize="-1" focusTraversable="true" id="listbot" layoutX="8" layoutY="48" prefHeight="144" prefWidth="304" styleClass="list-view ">
       <items xmlns:fx="http://javafx.com/fxml">
         <FXCollections fx:factory="observableArrayList"/>
       </items>
     </ListViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-listbot" tooltipText="Лист токенов ботов" visible="1"/>
-    <TextField AnchorPane.bottomAnchor="8" AnchorPane.leftAnchor="8" AnchorPane.rightAnchor="48" alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="token" layoutX="8" layoutY="200" prefColumnCount="12" prefHeight="32" prefWidth="264" promptText="" styleClass="text-input text-field " text="">
+    <TextField AnchorPane.bottomAnchor="8" AnchorPane.leftAnchor="8" AnchorPane.rightAnchor="48" alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="token" layoutX="8" layoutY="200" prefColumnCount="12" prefHeight="32" prefWidth="264" promptText="Токен" styleClass="text-input text-field " text="">
       <font>
-        <Font name="System Regular" size="13"/>
+        <Font name="SansSerif Regular" size="13"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-token" tooltipText="Токен бота" visible="1"/>
-    <Button AnchorPane.bottomAnchor="7" AnchorPane.rightAnchor="8" alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="addbot" layoutX="280" layoutY="201" prefHeight="32" prefWidth="32" styleClass="button " text="+" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button AnchorPane.bottomAnchor="7" AnchorPane.rightAnchor="8" alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="addbot" layoutX="304" layoutY="201" prefHeight="32" prefWidth="32" styleClass="button " text="+" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-addbot" tooltipText="Добавить новый токен бота" visible="1"/>
+    <TextField AnchorPane.leftAnchor="8" AnchorPane.rightAnchor="120" alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="myToken" layoutX="8" layoutY="8" prefColumnCount="12" prefHeight="32" prefWidth="208" promptText="Свой токен" styleClass="text-input text-field " text="">
+      <font>
+        <Font name="SansSerif Regular" size="13"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-myToken" tooltipText="Личный токен бота" visible="1"/>
+    <ToggleButton AnchorPane.rightAnchor="8" alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="installMyToken" layoutX="232" layoutY="8" prefHeight="32" prefWidth="104" styleClass="toggle-button " text="Установить" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="SansSerif Regular" size="13"/>
+      </font>
+    </ToggleButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-installMyToken" visible="1"/>
   </children>
 </AnchorPane>

@@ -22,4 +22,6 @@ class MainModule extends AbstractModule {
             Logger::error('Поля токен пусто :(');
         }
     }
+    
+     
 }

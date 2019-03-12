@@ -13,4 +13,11 @@ class MainForm extends AbstractForm {
         $this->form('repo_bot')->showAndWait();
         $this->hidePreloader();
     }
+
+    /**
+     * @event message.globalKeyDown-Enter 
+     */
+    function doMessageGlobalKeyDownEnter(UXKeyEvent $e = null) {    
+        
+    }
 }
