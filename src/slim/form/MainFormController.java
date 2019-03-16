@@ -34,9 +34,13 @@ public class MainFormController implements Initializable {
     @FXML
     private void auth(ActionEvent event) {
         String name = this.name.getText().trim();
+        String password = this.pass.getText().trim();
         if (name.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для входа").showAndWait();
             this.name.setText("");
+        } else if (password.isEmpty()) {
+           new Alert(Alert.AlertType.ERROR, "Пожалуйста введите пароль для входа").showAndWait(); 
+           this.pass.setText("");
         } else {
             
         }
@@ -45,9 +49,13 @@ public class MainFormController implements Initializable {
     @FXML
     void register(ActionEvent event) {
         String name = this.name.getText().trim();
+        String password = this.pass.getText().trim();
         if (name.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для регестраций").showAndWait();
             this.name.setText("");
+        } else if (password.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Пожалуйста введите пароль для регестраций").showAndWait();
+            this.pass.setText("");
         } else {
             
         }
