@@ -45,7 +45,8 @@ public class MainFormController implements Initializable {
     @FXML
     private PasswordField pass;
     
-    private Connection con = null; 
+    private Connection con = null; //подключение mysql
+    
     private PreparedStatement pst = null;
     private ResultSet result = null;
     
@@ -65,7 +66,7 @@ public class MainFormController implements Initializable {
                     String sql = "SELECT * FROM `database`";
                     Boolean successLogin = false;
                     Boolean successPassword = false;
-                    pst = con.prepareStatement(sql);
+                    pst = this.con.prepareStatement(sql);
                     result = pst.executeQuery();
                     while (result.next()) {
                         String getName = result.getString(2);;
@@ -137,25 +138,50 @@ public class MainFormController implements Initializable {
         } else if (password.length() >= 128 || password.length() < 8) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите пароль не больше 128 символов и не меньше 8 символов").showAndWait();
         } else {
-            String sql = "INSERT INTO `database` (`id`, `name`, `password`) VALUES (NULL," + "'" + name + "'" + "," + "'" + password + "'" + ")";
-            try {
-                pst = con.prepareStatement(sql);
-                int i = pst.executeUpdate();
-                if (i == 1) {
-                    System.out.println("[SQL => Новый запрос на регестрацию] => Успешно :)");
-                    this.name.setText("");
-                    this.pass.setText("");
-                    new Alert (Alert.AlertType.INFORMATION, "Вы успешно прошли регестрацию :)").showAndWait();
+            Boolean checkauth = this.checkRegister(name);
+            if (checkauth == true) {
+                String sql = "INSERT INTO `database` (`id`, `name`, `password`) VALUES (NULL," + "'" + name + "'" + "," + "'" + password + "'" + ")";
+                try {
+                    pst = this.con.prepareStatement(sql);
+                    int i = pst.executeUpdate();
+                    if (i == 1) {
+                        System.out.println("[SQL => Новый запрос на регестрацию] => Успешно :)");
+                        this.name.setText("");
+                        this.pass.setText("");
+                        new Alert (Alert.AlertType.INFORMATION, "Вы успешно прошли регестрацию :)").showAndWait();
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFormController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(MainFormController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            finally {
-                pst.cancel();
+                finally {
+                    pst.cancel();
+                }
+            } else {
+                System.out.println("[SQL => Регестрация невозможно так как такой пользователь уже есть!] => Условная ошибка  :/");
+                new Alert(Alert.AlertType.ERROR, "Пожалуйста, придумайте другое имя так как такой пользователь уже зарегистрирован").showAndWait();
             }
         } 
     }
     
+    /**
+     * Проверка есть такой пользователь или нет
+     */
+    Boolean checkRegister (String username) {
+        try {
+            String sql = "SELECT * FROM `database`";
+            pst = this.con.prepareStatement(sql);
+            result = pst.executeQuery();
+            while (result.next()){
+                String getName = result.getString(2);
+                if (username.equals(getName)) {
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("[SQL => Ошибка запроса]");
+        }
+        return true;
+    }
     /**
      * Initializes the controller class.
      */
