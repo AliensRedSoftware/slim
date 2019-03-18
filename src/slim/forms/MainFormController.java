@@ -27,7 +27,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import slim.DBConnection;
-import slim.Slim;
 
 /**
  * FXML Controller class
@@ -68,27 +67,17 @@ public class MainFormController implements Initializable {
                     Boolean successPassword = false;
                     pst = this.con.prepareStatement(sql);
                     result = pst.executeQuery();
+                    
                     while (result.next()) {
-                        String getName = result.getString(2);;
-                        if (name.equals(getName)) { //Проверка на логинность
+                        String getName = result.getString(2);
+                        String getPassword = result.getString(3);
+                        if (name.equals(getName) && password.equals(getPassword)) { //Проверка на логинность
                             successLogin = true;
+                            successPassword = true;
                             break;
-                        } else {
-                            successLogin = false;
-                        }
-                    }
-                    result = pst.executeQuery(); //Перезагрузка запроса ;)
-                    while (result.next()){
-                        if (successLogin == true) {
-                            String getPassword = result.getString(3);
-                            if (password.equals(getPassword)) {
-                                successPassword = true;
-                                break;
-                            }
                         } else {
                             successLogin = false;
                             successPassword = false;
-                            break;
                         }
                     }
                     if (successLogin == true && successPassword == true) {
@@ -105,16 +94,12 @@ public class MainFormController implements Initializable {
                         Window MainForm = source.getScene().getWindow();
                         MainForm.getScene().getWindow().hide();
                     }
-                    if (successLogin == false) {
+                    else {
                         System.out.println("[Аккаунт => неверный логин]");
-                        new Alert(Alert.AlertType.ERROR, "Неверный логин при входи!").showAndWait();    
-                    }
-                    if (successPassword == false) {
-                        System.out.println("[Аккаунт => неверный пароль]");
-                        new Alert(Alert.AlertType.ERROR, "Неверный пароль при входи!").showAndWait();
+                        new Alert(Alert.AlertType.ERROR, "Неверный логин и пароль!").showAndWait();    
                     }
                 } catch (SQLException ex) {
-                    
+                    System.out.println("[SQL => Ошибка запроса]");
                 }
             } catch (Exception e) {
                 System.out.println("Ошибка!");
@@ -188,6 +173,6 @@ public class MainFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DBConnection db = new DBConnection ();
-        con = db.getConnection("127.0.0.1:3306", "space_1337", "root", "root"); //Подключение бд sql :)
+        this.con = db.getConnection("127.0.0.1:3306", "space_1337", "root", "root"); //Подключение бд sql :)
     }    
 }
