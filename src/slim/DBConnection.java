@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -26,6 +28,8 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             System.out.println("[SQL => Ошибка подключение :(]");
+            new Alert(Alert.AlertType.ERROR, "SQL => Ошибка подключение :(").showAndWait();
+            Platform.exit();
         }
         return this.connection;
     } 
