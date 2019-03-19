@@ -25,8 +25,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import slim.DBConnection;
@@ -47,11 +45,15 @@ public class MainFormController implements Initializable {
     @FXML
     protected PasswordField pass;
     
+    protected String sql = "SELECT * FROM `database`";
+    
     protected Connection con = null; //подключение mysql
     
     protected PreparedStatement pst = null;
     
     protected ResultSet result = null;
+    
+    protected Boolean successLogin = false , successPassword = false;
     
     /**
      * Авторизация пользователя
@@ -60,35 +62,29 @@ public class MainFormController implements Initializable {
      */
     @FXML
     protected void auth(ActionEvent event) throws Exception {
-        String name = this.name.getText().trim();
-        String password = this.pass.getText().trim();
-        if (name.isEmpty()) {
+        if (this.name.getText().trim().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для входа").showAndWait();
             this.name.setText("");
-        } else if (password.isEmpty()) {
+        } else if (this.pass.getText().trim().isEmpty()) {
            new Alert(Alert.AlertType.ERROR, "Пожалуйста введите пароль для входа").showAndWait(); 
            this.pass.setText("");
         } else {
             try {
                 try {
-                    String sql = "SELECT * FROM `database`";
-                    Boolean successLogin = false;
-                    Boolean successPassword = false;
-                    pst = this.con.prepareStatement(sql);
-                    result = pst.executeQuery();
-                    while (result.next()) {
-                        String getName = result.getString(2);
-                        String getPassword = result.getString(3);
-                        if (name.equals(getName) && password.equals(getPassword)) { //Проверка на логинность
-                            successLogin = true;
-                            successPassword = true;
+                    this.sql = "SELECT * FROM `database`";
+                    this.pst = this.con.prepareStatement(this.sql);
+                    this.result = this.pst.executeQuery();
+                    while(this.result.next()) {
+                        if (this.name.getText().equals(this.result.getString(2)) && this.pass.getText().equals(this.result.getString(3))) { //Проверка на логинность
+                            this.successLogin = true;
+                            this.successPassword = true;
                             break;
                         } else {
-                            successLogin = false;
-                            successPassword = false;
+                            this.successLogin = false;
+                            this.successPassword = false;
                         }
                     }
-                    if (successLogin == true && successPassword == true) {
+                    if (this.successLogin == true && this.successPassword == true) {
                         System.out.println("[Аккаунт => успешный был вход!]");
                         new Alert(Alert.AlertType.INFORMATION, "Успешный был вход!").showAndWait();
                         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("chat.fxml"));
@@ -106,6 +102,7 @@ public class MainFormController implements Initializable {
                         System.out.println("[Аккаунт => неверный логин]");
                         new Alert(Alert.AlertType.ERROR, "Неверный логин и пароль!").showAndWait();    
                     }
+                    this.pst.cancel();
                 } catch (SQLException ex) {
                     System.out.println("[SQL => Ошибка запроса]");
                 }
@@ -122,26 +119,23 @@ public class MainFormController implements Initializable {
      */
     @FXML
     protected void register(ActionEvent event) throws SQLException {
-        String name = this.name.getText().trim();
-        String password = this.pass.getText().trim();
-        if (name.isEmpty()) {
+        if (this.name.getText().trim().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для регестраций").showAndWait();
             this.name.setText("");
-        } else if (password.isEmpty()) {
+        } else if (this.pass.getText().trim().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите пароль для регестраций").showAndWait();
             this.pass.setText("");
-        } else if (name.length() >= 128 || name.length() < 3) {
+        } else if (this.name.getText().length() >= 128 || this.name.getText().length() < 3) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин не больше 128 символов и не меньше 3 символов").showAndWait();
-        } else if (password.length() >= 128 || password.length() < 8) {
+        } else if (this.pass.getText().length() >= 128 || this.pass.getText().length() < 8) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите пароль не больше 128 символов и не меньше 8 символов").showAndWait();
         } else {
-            Boolean checkauth = this.checkRegister(name);
+            Boolean checkauth = this.checkRegister(this.name.getText());
             if (checkauth == true) {
-                String sql = "INSERT INTO `database` (`id`, `name`, `password`) VALUES (NULL," + "'" + name + "'" + "," + "'" + password + "'" + ")";
+                this.sql = "INSERT INTO `database` (`id`, `name`, `password`) VALUES (NULL," + "'" + this.name.getText().trim() + "'" + "," + "'" + this.pass.getText().trim() + "'" + ")";
                 try {
-                    pst = this.con.prepareStatement(sql);
-                    int i = pst.executeUpdate();
-                    if (i == 1) {
+                    this.pst = this.con.prepareStatement(this.sql);
+                    if (this.pst.executeUpdate() == 1) {
                         System.out.println("[SQL => Новый запрос на регестрацию] => Успешно :)");
                         this.name.setText("");
                         this.pass.setText("");
@@ -151,7 +145,7 @@ public class MainFormController implements Initializable {
                     Logger.getLogger(MainFormController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 finally {
-                    pst.cancel();
+                    this.pst.cancel();
                 }
             } else {
                 System.out.println("[SQL => Регестрация невозможно так как такой пользователь уже есть!] => Условная ошибка  :/");
@@ -174,12 +168,10 @@ public class MainFormController implements Initializable {
      */
     Boolean checkRegister (String username) {
         try {
-            String sql = "SELECT * FROM `database`";
-            pst = this.con.prepareStatement(sql);
-            result = pst.executeQuery();
-            while (result.next()){
-                String getName = result.getString(2);
-                if (username.equals(getName)) {
+            this.pst = this.con.prepareStatement(this.sql);
+            this.result = this.pst.executeQuery();
+            while (this.result.next()){
+                if (username.equals(this.result.getString(2))) {
                     return false;
                 }
             }
