@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slim.forms.MainFormController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="240.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slim.forms.MainFormController">
     <children>
         <TextField fx:id="name" promptText="Логин">
             <VBox.margin>
@@ -18,14 +18,14 @@
                 <Font name="SansSerif Regular" size="13.0" />
             </font>
         </TextField>
-      <PasswordField fx:id="pass" promptText="Пароль">
+      <PasswordField fx:id="pass" onAction="#AuthKeyEnter" promptText="Пароль">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" />
          </VBox.margin>
       </PasswordField>
         <HBox prefHeight="30.0" prefWidth="235.0">
             <children>
-                <Button fx:id="Login" mnemonicParsing="false" onAction="#auth" text="Войти">
+                <Button fx:id="Login" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#auth" prefHeight="25.0" prefWidth="56.0" text="Войти">
                     <font>
                         <Font name="SansSerif Regular" size="13.0" />
                     </font>
@@ -33,9 +33,9 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="register" mnemonicParsing="false" onAction="#register" text="Создать новый аккаунт">
+                <Button fx:id="register" mnemonicParsing="false" onAction="#register" prefWidth="99999.0" text="Создать новый аккаунт">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                        <Insets right="5.0" />
                     </HBox.margin>
                     <font>
                         <Font name="SansSerif Regular" size="13.0" />

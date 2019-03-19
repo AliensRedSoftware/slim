@@ -5,6 +5,7 @@
  */
 package slim.forms;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.sql.Connection;
@@ -24,6 +25,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import slim.DBConnection;
@@ -36,21 +39,27 @@ import slim.DBConnection;
 public class MainFormController implements Initializable {
 
     @FXML
-    private TextField name;
+    protected TextField name;
     @FXML
-    private Button Login;
+    protected Button Login;
     @FXML
-    private Button register;
+    protected Button register;
     @FXML
-    private PasswordField pass;
+    protected PasswordField pass;
     
-    private Connection con = null; //подключение mysql
+    protected Connection con = null; //подключение mysql
     
-    private PreparedStatement pst = null;
-    private ResultSet result = null;
+    protected PreparedStatement pst = null;
     
+    protected ResultSet result = null;
+    
+    /**
+     * Авторизация пользователя
+     * @param event
+     * @throws Exception 
+     */
     @FXML
-    private void auth(ActionEvent event) throws Exception {
+    protected void auth(ActionEvent event) throws Exception {
         String name = this.name.getText().trim();
         String password = this.pass.getText().trim();
         if (name.isEmpty()) {
@@ -100,14 +109,19 @@ public class MainFormController implements Initializable {
                 } catch (SQLException ex) {
                     System.out.println("[SQL => Ошибка запроса]");
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.out.println("Ошибка!");
             }
         }
     }
     
+    /**
+     * Регестрация пользователя
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
-    void register(ActionEvent event) throws SQLException {
+    protected void register(ActionEvent event) throws SQLException {
         String name = this.name.getText().trim();
         String password = this.pass.getText().trim();
         if (name.isEmpty()) {
@@ -147,6 +161,15 @@ public class MainFormController implements Initializable {
     }
     
     /**
+     * Вход в аккаунт используя enter
+     * @param event 
+     */
+    @FXML
+    private void AuthKeyEnter(ActionEvent event) throws Exception {
+        this.auth(event);
+    }
+    
+    /**
      * Проверка есть такой пользователь или нет
      */
     Boolean checkRegister (String username) {
@@ -165,6 +188,7 @@ public class MainFormController implements Initializable {
         }
         return true;
     }
+
     /**
      * Initializes the controller class.
      */
@@ -173,4 +197,5 @@ public class MainFormController implements Initializable {
         DBConnection db = new DBConnection ();
         this.con = db.getConnection("127.0.0.1:3306", "space_1337", "root", "root"); //Подключение бд sql :)
     }    
+
 }
