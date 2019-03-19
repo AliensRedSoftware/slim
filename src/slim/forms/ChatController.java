@@ -5,9 +5,18 @@
  */
 package slim.forms;
 
+import java.awt.TextArea;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 
 /**
  * FXML Controller class
@@ -16,6 +25,18 @@ import javafx.fxml.Initializable;
  */
 public class ChatController implements Initializable {
 
+    @FXML
+    private javafx.scene.control.TextArea text;
+
+    @FXML
+    public TextField sending;
+
+    @FXML
+    private TextField search;
+
+    @FXML
+    private ListView<?> listuser;
+    
     /**
      * Initializes the controller class.
      */
@@ -23,5 +44,18 @@ public class ChatController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void sendingmsg(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            if (this.sending.getText().trim().isEmpty()) {
+                this.sending.setText("");
+                System.out.print("Отправить невозможно пустое!"); 
+                new Alert(Alert.AlertType.ERROR, "Введите текст для отправки сообщение...").showAndWait();
+            } else {
+                //Успешное отправка...
+            }
+        }
+    }
     
 }

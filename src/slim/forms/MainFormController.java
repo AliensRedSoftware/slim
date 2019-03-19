@@ -67,7 +67,6 @@ public class MainFormController implements Initializable {
                     Boolean successPassword = false;
                     pst = this.con.prepareStatement(sql);
                     result = pst.executeQuery();
-                    
                     while (result.next()) {
                         String getName = result.getString(2);
                         String getPassword = result.getString(3);
@@ -111,7 +110,6 @@ public class MainFormController implements Initializable {
     void register(ActionEvent event) throws SQLException {
         String name = this.name.getText().trim();
         String password = this.pass.getText().trim();
-        name.length();
         if (name.isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Пожалуйста введите логин для регестраций").showAndWait();
             this.name.setText("");
