@@ -188,6 +188,6 @@ public class MainFormController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         DBConnection db = new DBConnection ();
         this.con = db.getConnection("127.0.0.1:3306", "space_1337", "root", "root"); //Подключение бд sql :)
-    }    
+    }
 
 }

@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Slim",
+            "request": "launch",
+            "mainClass": "slim.Slim",
+            "projectName": "slim_bdbda6c8"
+        }
+    ]
+}

@@ -6,13 +6,21 @@
 package slim.forms;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import slim.DBConnection;
 
 
 /**
@@ -21,7 +29,9 @@ import javafx.scene.control.TextArea;
  * @author merkus
  */
 public class ChatController implements Initializable {
-
+    
+    protected Connection con = null; //подключение mysql
+        
     @FXML
     private TextArea text;
 
@@ -33,6 +43,9 @@ public class ChatController implements Initializable {
 
     @FXML
     private ListView<?> listuser;
+    private ResultSet result;
+    private String sql;
+    private PreparedStatement pst;
     
     /**
      * Отправка сообщение
@@ -44,7 +57,7 @@ public class ChatController implements Initializable {
             this.sending.setText("");
             System.out.println("Отправить невозможно пустое!"); 
         } else {
-            //Успешное отправка...
+           // LAL
         }
     }
     
@@ -58,7 +71,20 @@ public class ChatController implements Initializable {
             this.search.setText("");
             System.out.println("Найти пустого пользователя невозможно!"); 
         } else {
-            //Успешное отправка...
+             try {
+                String text = this.search.getText().trim();
+                this.sql = "SELECT * FROM `database`";
+                this.pst = this.con.prepareStatement(this.sql);
+                this.result = this.pst.executeQuery();
+                while(this.result.next()){
+                    if(this.result.getString(2).equals(text)){
+                        new Alert(Alert.AlertType.INFORMATION, "Найден пользователь: " + text).showAndWait();
+                        System.out.println(this.result.getString(2));
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -67,6 +93,7 @@ public class ChatController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        DBConnection db = new DBConnection ();
+        this.con = db.getConnection("127.0.0.1:3306", "space_1337", "root", "root"); //Подключение бд sql :)
     }    
 }
