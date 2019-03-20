@@ -19,16 +19,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import slim.DBConnection;
 
-
 /**
  * FXML Controller class
  *
  * @author merkus
  */
 public class ChatController implements Initializable {
-    
-    protected Connection con = null; //подключение mysql
-        
+
+    protected Connection con = null; // подключение mysql
+
     @FXML
     private TextArea text;
 
@@ -43,70 +42,74 @@ public class ChatController implements Initializable {
     private ResultSet result;
     private String sql;
     private PreparedStatement pst;
-    
-    private final ObservableList<String> userdata = FXCollections.observableArrayList();//лист к listview
-    
+
+    private final ObservableList<String> userdata = FXCollections.observableArrayList();// лист к listview
+
+    private String searchText;
+
     /**
      * Отправка сообщение
-     * @param event 
+     * 
+     * @param event
      */
     @FXML
     protected void SendMessage(ActionEvent event) {
         if (this.sending.getText().trim().isEmpty()) {
             this.sending.setText("");
-            System.out.println("Отправить невозможно пустое!"); 
+            System.out.println("Отправить невозможно пустое!");
         } else {
-            if (!this.listuser.getSelectionModel().getSelectedItem().equals(null)){
+            if (!this.listuser.getSelectionModel().getSelectedItem().equals(null)) {
                 System.out.println("Сообщение отправлено:" + this.listuser.getSelectionModel().getSelectedItem());
-                
+
             } else {
                 System.out.println("Отправить сообщение не удается так как нужно выбрать пользователя");
             }
         }
     }
-    
+
     /**
      * Пойск пользователя по нику
-     * @param event 
+     * 
+     * @param event
      */
     @FXML
     void SearchToUser(ActionEvent event) {
         if (this.search.getText().trim().isEmpty()) {
             this.search.setText("");
-            System.out.println("Найти пустого пользователя невозможно!"); 
+            System.out.println("Найти пустого пользователя невозможно!");
         } else {
-             try {
-                //Перемычка
+            try {
+                // Перемычка
                 this.userdata.add(this.search.getText().trim());
                 this.listuser.setItems(this.userdata);
-                //Смычка )
-                String text = this.search.getText().trim();
+                // Смычка )
+                this.searchText = this.search.getText().trim();
                 this.sql = "SELECT * FROM `database`";
                 this.pst = this.con.prepareStatement(this.sql);
                 this.result = this.pst.executeQuery();
-                while(this.result.next()){
-                    if(this.result.getString(2).equals(text)){
+                while (this.result.next()) {
+                    if (this.result.getString(2).equals(text)) {
                         new Alert(Alert.AlertType.INFORMATION, "Найден пользователь: " + text).showAndWait();
                         System.out.println(this.result.getString(2));
                     }
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            finally {
+            } finally {
                 this.search.setText("");
             }
         }
     }
-    
+
     /**
      * Initializes the controller class.
+     * 
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DBConnection db = new DBConnection ();
-        this.con = db.getConnection(); //Подключение бд sql :)
-    }    
+        DBConnection db = new DBConnection();
+        this.con = db.getConnection(); // Подключение бд sql :)
+    }
 }
