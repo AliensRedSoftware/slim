@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -81,7 +82,6 @@ public class MainFormController implements Initializable {
                     }
                     if (this.successLogin == true && this.successPassword == true) {
                         System.out.println("[Аккаунт => успешный был вход!]");
-                        new Alert(Alert.AlertType.INFORMATION, "Успешный был вход!").showAndWait();
                         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("chat.fxml"));
                         Parent rootl = (Parent) fxmlloader.load();
                         Stage stage = new Stage();

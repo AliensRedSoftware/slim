@@ -88,7 +88,6 @@ public class ChatController implements Initializable {
                             new Alert(Alert.AlertType.ERROR, "Найденый пользователь уже добавлен в список:  " + this.search.getText().trim()).showAndWait();
                         } else {
                             this.userdata.add(this.search.getText().trim());
-                            new Alert(Alert.AlertType.INFORMATION, "Пользователь: " + this.search.getText().trim() + " успешно добавлен").showAndWait();
                         }
                     }
                 }
