@@ -14,15 +14,21 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 /**
- *
+ * 
  * @author merkus
  */
 public class DBConnection {
     protected Connection connection = null;
-    public Connection getConnection(String ip, String dbname, String UserName, String password) {
+    protected String ip = "db4free.net:3306", dbname = "space_1337", UserName = "kek321_test", password = "8eebd19f89";
+    
+    /**
+     * Получение подключение бд
+     * @return 
+     */
+    public Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + dbname, UserName, password);
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + this.ip + "/" + this.dbname, this.UserName, this.password);
             System.out.println("[SQL => подключение успешно :)]");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);

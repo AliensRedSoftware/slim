@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package slim.forms;
 
 import java.io.IOException;
@@ -183,11 +178,13 @@ public class MainFormController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DBConnection db = new DBConnection ();
-        this.con = db.getConnection("127.0.0.1:3306", "space_1337", "root", "root"); //Подключение бд sql :)
+        this.con = db.getConnection(); //Подключение бд sql :)
     }
 
 }
