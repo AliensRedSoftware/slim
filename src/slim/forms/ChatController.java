@@ -38,7 +38,7 @@ public class ChatController implements Initializable {
     @FXML
     private ListView<String> listuser;
     private ResultSet result;
-    private String sql,searchText;
+    private String sql;
     private PreparedStatement pst;
 
     private final ObservableList<String> userdata = FXCollections.observableArrayList();// лист к listview
@@ -77,21 +77,18 @@ public class ChatController implements Initializable {
             System.out.println("Найти пустого пользователя невозможно!");
         } else {
             try {
-                // Перемычка
-                this.searchText = this.search.getText().trim();
                 this.listuser.setItems(this.userdata);
-                // Смычка )
                 this.sql = "SELECT * FROM `database`";
                 this.pst = this.con.prepareStatement(this.sql);
                 this.result = this.pst.executeQuery();
                 while (this.result.next()) {
-                    if (this.result.getString(2).equals(this.searchText)) {
+                    if (this.result.getString(2).equals(this.search.getText().trim())) {
                         System.out.println("Найден пользователь: [ " + this.result.getString(2) + " ]");
-                        if (Arrays.asList(this.userdata).contains(this.searchText)) {
-                            new Alert(Alert.AlertType.ERROR, "Найденый пользователь уже добавлен в список:  " + this.searchText).showAndWait();
+                        if (Arrays.asList(this.listuser.getItems().toArray()).contains(this.search.getText().trim())) {
+                            new Alert(Alert.AlertType.ERROR, "Найденый пользователь уже добавлен в список:  " + this.search.getText().trim()).showAndWait();
                         } else {
-                            this.userdata.add(this.searchText);
-                            new Alert(Alert.AlertType.INFORMATION, "Пользователь: " + this.searchText + " успешно добавлен").showAndWait();
+                            this.userdata.add(this.search.getText().trim());
+                            new Alert(Alert.AlertType.INFORMATION, "Пользователь: " + this.search.getText().trim() + " успешно добавлен").showAndWait();
                         }
                     }
                 }
