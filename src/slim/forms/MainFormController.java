@@ -34,9 +34,7 @@ public class MainFormController implements Initializable {
     @FXML
     protected TextField name;
     @FXML
-    protected Button Login;
-    @FXML
-    protected Button register;
+    protected Button Login, register;
     @FXML
     protected PasswordField pass;
     
@@ -49,6 +47,8 @@ public class MainFormController implements Initializable {
     protected ResultSet result = null;
     
     protected Boolean successLogin = false , successPassword = false;
+    
+    protected DBConnection db = new DBConnection ();
     
     /**
      * Авторизация пользователя
@@ -183,8 +183,7 @@ public class MainFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DBConnection db = new DBConnection ();
-        this.con = db.getConnection(); //Подключение бд sql :)
+        this.con = this.db.getConnection(); //Подключение бд sql :)
     }
 
 }

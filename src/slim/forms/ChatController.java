@@ -33,20 +33,17 @@ public class ChatController implements Initializable {
     private TextArea text;
 
     @FXML
-    public TextField sending;
-
-    @FXML
-    private TextField search;
+    public TextField sending, search;
 
     @FXML
     private ListView<String> listuser;
     private ResultSet result;
-    private String sql;
+    private String sql,searchText;
     private PreparedStatement pst;
 
     private final ObservableList<String> userdata = FXCollections.observableArrayList();// лист к listview
-
-    private String searchText;
+    
+    protected DBConnection db = new DBConnection();
 
     /**
      * Отправка сообщение
@@ -89,7 +86,6 @@ public class ChatController implements Initializable {
                 this.result = this.pst.executeQuery();
                 while (this.result.next()) {
                     if (this.result.getString(2).equals(this.searchText)) {
-                       
                         System.out.println("Найден пользователь: [ " + this.result.getString(2) + " ]");
                         if (Arrays.asList(this.userdata).contains(this.searchText)) {
                             new Alert(Alert.AlertType.ERROR, "Найденый пользователь уже добавлен в список:  " + this.searchText).showAndWait();
@@ -115,7 +111,6 @@ public class ChatController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DBConnection db = new DBConnection();
-        this.con = db.getConnection(); // Подключение бд sql :)
+        this.con = this.db.getConnection(); // Подключение бд sql :)
     }
 }
