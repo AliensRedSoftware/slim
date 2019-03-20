@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,17 +81,22 @@ public class ChatController implements Initializable {
         } else {
             try {
                 // Перемычка
-                this.userdata.add(this.search.getText().trim());
+                this.searchText = this.search.getText().trim();
                 this.listuser.setItems(this.userdata);
                 // Смычка )
-                this.searchText = this.search.getText().trim();
                 this.sql = "SELECT * FROM `database`";
                 this.pst = this.con.prepareStatement(this.sql);
                 this.result = this.pst.executeQuery();
                 while (this.result.next()) {
-                    if (this.result.getString(2).equals(text)) {
-                        new Alert(Alert.AlertType.INFORMATION, "Найден пользователь: " + text).showAndWait();
-                        System.out.println(this.result.getString(2));
+                    if (this.result.getString(2).equals(this.searchText)) {
+                       
+                        System.out.println("Найден пользователь: [ " + this.result.getString(2) + " ]");
+                        if (Arrays.asList(this.userdata).contains(this.searchText)) {
+                            new Alert(Alert.AlertType.ERROR, "Найденый пользователь уже добавлен в список:  " + this.searchText).showAndWait();
+                        } else {
+                            this.userdata.add(this.searchText);
+                            new Alert(Alert.AlertType.INFORMATION, "Пользователь: " + this.searchText + " успешно добавлен").showAndWait();
+                        }
                     }
                 }
             } catch (SQLException ex) {
